@@ -147,5 +147,4 @@ public class RightClickHarvesting {
 		entityItem.setDefaultPickupDelay();
 		world.spawnEntity(entityItem);
 	}
-
 }

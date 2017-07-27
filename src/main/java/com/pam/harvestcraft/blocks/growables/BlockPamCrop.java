@@ -24,9 +24,10 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.FMLLog;
+import toughasnails.api.season.IDecayableCrop;
 
 public class BlockPamCrop extends BlockCrops
-		implements IGrowable, IPlantable, PamCropGrowable {
+		implements IGrowable, IPlantable, PamCropGrowable, IDecayableCrop {
 
 	private static final int MATURE_AGE = 3;
 
@@ -302,6 +303,12 @@ public class BlockPamCrop extends BlockCrops
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos,
 			IBlockState state) {
+		// return false;
 		return getAge(state) < getMaxAge();
+	}
+
+	@Override
+	public boolean shouldDecay() {
+		return true;
 	}
 }

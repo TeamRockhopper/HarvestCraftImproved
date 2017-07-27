@@ -10,10 +10,18 @@ import com.pam.harvestcraft.item.ItemRegistry;
 import com.pam.harvestcraft.item.RecipeRegistry;
 import com.pam.harvestcraft.item.SeedDropRegistry;
 import com.pam.harvestcraft.loottables.LootTableLoadEventHandler;
-import com.pam.harvestcraft.tileentities.*;
+import com.pam.harvestcraft.tileentities.MarketItems;
+import com.pam.harvestcraft.tileentities.ShippingBinItems;
+import com.pam.harvestcraft.tileentities.TileEntityApiary;
+import com.pam.harvestcraft.tileentities.TileEntityGroundTrap;
+import com.pam.harvestcraft.tileentities.TileEntityMarket;
+import com.pam.harvestcraft.tileentities.TileEntityPresser;
+import com.pam.harvestcraft.tileentities.TileEntityShippingBin;
+import com.pam.harvestcraft.tileentities.TileEntityWaterTrap;
 import com.pam.harvestcraft.worldgen.BeehiveWorldGen;
 import com.pam.harvestcraft.worldgen.BushWorldWorldGen;
 import com.pam.harvestcraft.worldgen.FruitTreeWorldGen;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -22,44 +30,47 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
 
-    public void preInit(FMLPreInitializationEvent e) {
-        CropRegistry.registerCrops();
-        FruitRegistry.registerFruits();
-        BlockRegistry.initBlockRegistry();
-        ItemRegistry.registerItems();
+	public void preInit(FMLPreInitializationEvent e) {
+		CropRegistry.registerCrops();
+		FruitRegistry.registerFruits();
+		BlockRegistry.initBlockRegistry();
+		ItemRegistry.registerItems();
 
-        onBlocksAndItemsLoaded();
-    }
+		onBlocksAndItemsLoaded();
+	}
 
-    public void init(FMLInitializationEvent e) {
-        GameRegistry.registerWorldGenerator(new BushWorldWorldGen(), 0);
-        GameRegistry.registerWorldGenerator(new FruitTreeWorldGen(), 0);
-        GameRegistry.registerWorldGenerator(new BeehiveWorldGen(), 0);
-    }
+	public void init(FMLInitializationEvent e) {
+		GameRegistry.registerWorldGenerator(new BushWorldWorldGen(), 0);
+		GameRegistry.registerWorldGenerator(new FruitTreeWorldGen(), 0);
+		GameRegistry.registerWorldGenerator(new BeehiveWorldGen(), 0);
+	}
 
-    public void postInit(FMLPostInitializationEvent e) {
-    }
+	public void postInit(FMLPostInitializationEvent e) {
+	}
 
-    public void onBlocksAndItemsLoaded() {
-        HarvestCraft.config.configureGardenDrops();
+	public void onBlocksAndItemsLoaded() {
+		HarvestCraft.config.configureGardenDrops();
 
-        GeneralOreRegistry.initOreRegistry();
+		GeneralOreRegistry.initOreRegistry();
 
-        RecipeRegistry.registerRecipes();
-        SeedDropRegistry.getSeedDrops();
+		RecipeRegistry.registerRecipes();
+		SeedDropRegistry.getSeedDrops();
 
-        MarketItems.registerItems();
-        ShippingBinItems.registerItems();
-        PacketHandler.init();
+		MarketItems.registerItems();
+		ShippingBinItems.registerItems();
+		PacketHandler.init();
 
-        GameRegistry.registerTileEntity(TileEntityApiary.class, "PamApiary");
-        GameRegistry.registerTileEntity(TileEntityMarket.class, "PamMarket");
-        GameRegistry.registerTileEntity(TileEntityShippingBin.class, "PamShippingbin");
-        GameRegistry.registerTileEntity(TileEntityPresser.class, "PamPresser");
-        GameRegistry.registerTileEntity(TileEntityGroundTrap.class, "PamGroundTrap");
-        GameRegistry.registerTileEntity(TileEntityWaterTrap.class, "PamWaterTrap");
+		GameRegistry.registerTileEntity(TileEntityApiary.class, "PamApiary");
+		GameRegistry.registerTileEntity(TileEntityMarket.class, "PamMarket");
+		GameRegistry.registerTileEntity(TileEntityShippingBin.class,
+				"PamShippingbin");
+		GameRegistry.registerTileEntity(TileEntityPresser.class, "PamPresser");
+		GameRegistry.registerTileEntity(TileEntityGroundTrap.class,
+				"PamGroundTrap");
+		GameRegistry.registerTileEntity(TileEntityWaterTrap.class,
+				"PamWaterTrap");
 
-        MinecraftForge.EVENT_BUS.register(new LootTableLoadEventHandler());
-        RightClickHarvesting.instance.register();
-    }
+		MinecraftForge.EVENT_BUS.register(new LootTableLoadEventHandler());
+		RightClickHarvesting.instance.register();
+	}
 }
